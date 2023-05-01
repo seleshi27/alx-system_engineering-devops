@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# this script prints 'To infinity and behold' until killed
+PIDFILE="/var/run/myscript.pid"
+echo $$ > $PIDFILE
+trap 'echo I hate the kill command; rm $PIDFILE; exit' SIGTERM
+trap "echo 'Y U no love me?!'" SIGINT
+trap 'rm $PIDFILE; exit' SIGQUIT
+
+while true;
+do
+	echo "To infinity and beyond"
+done
