@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# kill a process with SIGTERM
+pkill --signal SIGTERM -f './7-highlander'
