@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
-# script to install and setup nginx
-apt-get -y update
-apt-get -y upgrade
-apt-get -y install nginx
-service nginx start
+# Installs Nginx with the following configurations:
+# Listens on port 80.
+# Returns a page containing "Hello World!" when queried
+# at the root with a curl GET request.
+
+apt-get update
+apt-get install -y nginx
+
 echo "Hello World!" > /var/www/html/index.nginx-debian.html
+
+# use sudo for auth
+sudo service nginx restart
