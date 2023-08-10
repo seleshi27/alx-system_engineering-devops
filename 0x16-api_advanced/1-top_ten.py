@@ -1,22 +1,21 @@
 #!/usr/bin/python3
+"""Function to print hot posts on a given Reddit subreddit."""
 import requests
 
 
 def top_ten(subreddit):
-    '''Finds and prints the titles of the first 10 host posts'''
-
-    header = {'User-Agent':  'Chrome/66.0.3359.139 Mobile Safari/537.36'}
-    url = "https://api.reddit.com/r/{}/hot/".format(subreddit)
-    response = requests.get(url, headers=header)
-
-    if response.status_code == 200:
-        hot_list = response.json()["data"]["children"]
-
-        counter = 0
-        for hot in hot_list:
-            if counter == 10:
-                break
-            print(hot["data"]["title"])
-            counter += 1
-    else:
+    """Print the titles of the 10 hottest posts on a given subreddit."""
+    url = "https://www.reddit.com/r/{}/hot/.json".format(subreddit)
+    headers = {
+        "User-Agent": "linux:0x16.api.advanced:v1.0.0 (by /u/bdov_)"
+    }
+    params = {
+        "limit": 10
+    }
+    response = requests.get(url, headers=headers, params=params,
+                            allow_redirects=False)
+    if response.status_code == 404:
         print("None")
+        return
+    results = response.json().get("data")
+    [print(c.get("data").get("title")) for c in results.get("children")]
